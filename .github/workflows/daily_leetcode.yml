@@ -26,4 +26,4 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL_RANDOM }}
           MODE: "random"
-          DIFFICULTY: "MEDIUM"   # ← 要換難度改這裡
+          DIFFICULTY: "EASY"   # ← 要換難度改這裡
