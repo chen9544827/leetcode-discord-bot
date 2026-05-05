@@ -3,7 +3,7 @@ name: Daily LeetCode
 on:
   schedule:
     - cron: '0 1 * * *'   # 每天早上 09:00 台灣時間
-  workflow_dispatch:        # 手動觸發，方便測試
+  workflow_dispatch:
 
 jobs:
   send:
@@ -14,15 +14,16 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests
-      - name: 推送每日一題（平日）
-        if: github.event.schedule == '0 1 * * *'
+
+      - name: 推送每日一題
         run: python send_leetcode.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          MODE: daily
-      - name: 手動測試用
-        if: github.event_name == 'workflow_dispatch'
+          MODE: "daily"
+
+      - name: 推送指定難度題目
         run: python send_leetcode.py
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          MODE: random
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL_RANDOM }}
+          MODE: "random"
+          DIFFICULTY: "MEDIUM"   # ← 要換難度改這裡
